@@ -1,52 +1,11 @@
 import React,{useEffect,useState} from 'react'
-import styled from 'styled-components'
-import SearchBar from './components/search/SearchBar'
-import Weather from './components/main/Weather'
-import { BsFillArrowLeftCircleFill as Left } from "react-icons/bs"
-import { BsFillArrowRightCircleFill as Right } from "react-icons/bs"
 import useGeoLocation from './hooks/useGeolocation'
 import {getByLocation,getByCity} from './api/index'
+import Search from './components/Search'
+import Weather from './components/Weather'
 
-const Container = styled.div`
-  background: #304352;  
-  background: -webkit-linear-gradient(to right, #d7d2cc, #304352);  
-  background: linear-gradient(to right, #d7d2cc, #304352);
-  width: 800px;
-  height: 475px; 
-  display: flex;
-  margin: auto;
-  border-radius: 30px;
 
-  #search-bar{
-    margin-left: 255px;
-  }
-  
-`
-const Wrapper = styled.div`
-  display:flex ;
-  flex-direction:row ;
-  
-  #center{
-    margin-left: 40px;
-    margin-top: 75px;
-    width: 725px;
-    height: 330px;
-    background: rgba( 203, 200, 200, 0.15 );
-    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-    backdrop-filter: blur( 0px );
-    -webkit-backdrop-filter: blur( 0px );
-    border-radius: 10px;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-  }
 
-  #left{
-    margin-top: 220px;
-  }
-  #right{
-    margin-top: 220px;
-    margin-left: 20px;
-  }
-`
 
 
 const App = () => {
@@ -92,30 +51,28 @@ const App = () => {
       
   },[location,term])
   
-  
+ 
 
   return (   
-    <Container>     
-      <div>
-        <div id='search-bar'>
-          <SearchBar setTerm={setTerm}/>             
-        </div>     
-        <Wrapper>
-          {/* <div id='left'><Left onClick={fetchData} /></div> */}
-          <div id='center'>
-            <Weather 
-            city={data.city}
-            temperature={data.temperature}  
-            weather={data.weather}
-            humidity={data.humidity}
-            date={data.date}
-            loaded={loaded}
-            />
-          </div>
-          {/* <div id='right'><Right /></div> */}
-        </Wrapper>        
-      </div>
-    </Container>
+    <div className='bg-slate-500 h-screen w-full font-nunito text-slate-50'>
+        <div className=' flex items-center  justify-center h-screen'>               
+            <div className='bg-slate-100 backdrop-filter rounded-lg backdrop-blur-lg bg-opacity-10 w-3/4 h-3/4 '>
+              <div className='flex justify-center mt-4'>
+                  <Search setTerm={setTerm} />
+              </div>
+              <div className='mt-6'>
+                  <Weather 
+                  city={data.city}
+                  temperature={data.temperature}  
+                  weather={data.weather}
+                  humidity={data.humidity}
+                  date={data.date}
+                  loaded={loaded}
+                  />
+              </div>
+            </div>        
+        </div>   
+    </div>
   )
 }
 
